@@ -1,0 +1,9 @@
+*
+!docker
+!public
+!src
+src/setupTests.ts
+**/*test.ts
+!package.json
+!package-lock.json
+!tsconfig.json

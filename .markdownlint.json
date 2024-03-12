@@ -1,0 +1,47 @@
+// Reference: https://github.com/DavidAnson/markdownlint
+// Rules:     https://github.com/DavidAnson/markdownlint#rules--aliases
+// Exception: https://github.com/DavidAnson/markdownlint#configuration
+{
+  // Enable all markdownlint rules
+  "default": true,
+
+  // Set unordered list item prefix to dash (use - not * for unordered lists)
+  "MD004": { "style": "dash" },
+
+  // Set list indent level to 4 which Python-Markdown requires
+  "MD007": { "indent": 4 },
+
+  // Disable line length check
+  "MD013": false,
+  //"MD013": {
+  //  "strict": true,
+  //  "line_length": 120,
+  //  "heading_line_length": 80,
+  //  "code_blocks": false
+  //},
+
+  // Multiple headings with the same title
+  "MD024": { "siblings_only": true },
+
+  // Set Ordered list item prefix to "ordered" (use 1. 2. 3. not 1. 1. 1.)
+  "MD029": { "style": "ordered" },
+
+  // Allow inline HTML
+  "MD033": false,
+  //"MD033": { "allowed_elements": ["br", "figcaption", "figure"] },
+
+  // Deny leading and trailing spaces inside code spans like inline code
+  "MD038": false,
+
+  // Set code block style to fenced (use ``` not indented code blocks)
+  "MD046": { "style": "fenced" },
+
+  // Set code block style to backtick (use ``` not ~~~ for code blocks)
+  "MD048": { "style": "backtick" },
+
+  // Set emphasis style to underscore (use _text_ not *text* for emphasis)
+  "MD049": { "style": "underscore" },
+
+  // Set strong style to asterisk (use **text** not __text__ for strong)
+  "MD050": { "style": "asterisk" }
+}

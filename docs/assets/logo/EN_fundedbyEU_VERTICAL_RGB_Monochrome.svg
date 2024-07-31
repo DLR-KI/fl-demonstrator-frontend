@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg2"
+   width="290.79999"
+   height="294.73334"
+   viewBox="0 0 290.79999 294.73334"
+   sodipodi:docname="EN_fundedbyEU_VERTICAL_RGB_Monochrome.eps"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <g
+     id="g8"
+     inkscape:groupmode="layer"
+     inkscape:label="ink_ext_XXXXXX"
+     transform="matrix(1.3333333,0,0,-1.3333333,0,294.73333)">
+    <g
+       id="g10"
+       transform="scale(0.1)">
+      <path
+         d="m 1516.06,1351.24 -37.16,27.17 -37.11,-27.17 14.12,43.86 -37.74,27.11 46.52,-0.04 14.21,44.48 14.27,-44.44 h 46.52 l -37.74,-27.11 z m -51.03,-193.18 -37.16,27.17 -37.16,-27.17 14.16,43.86 -37.74,27.12 46.47,-0.05 14.27,44.49 14.26,-44.44 h 46.48 l -37.75,-27.12 z m -154.56,569.54 14.11,-43.85 -37.11,27.16 -37.21,-27.16 14.12,43.85 -37.69,27.17 46.52,-0.1 14.21,44.49 14.22,-44.39 h 46.57 z m 13.58,-710.52 -37.16,27.12 -37.16,-27.12 14.12,43.86 -37.7,27.12 46.48,-0.05 14.26,44.44 14.21,-44.39 h 46.53 l -37.74,-27.12 z M 1131.96,966 1094.83,993.121 1057.67,966 l 14.11,43.86 -37.71,27.12 46.52,-0.05 14.21,44.48 14.24,-44.43 h 46.53 l -37.75,-27.12 z m -51.42,840.39 14.24,44.43 14.24,-44.38 h 46.52 l -37.74,-27.12 14.14,-43.86 -37.16,27.12 -37.16,-27.12 14.14,43.86 -37.72,27.12 z m -140.638,-789.31 -37.136,27.12 -37.161,-27.12 14.118,43.86 -37.719,27.12 46.523,-0.05 14.215,44.44 14.238,-44.39 h 46.524 l -37.719,-27.12 z m -51.691,737.64 14.238,44.49 14.239,-44.44 h 46.523 l -37.719,-27.12 14.117,-43.85 -37.136,27.11 -37.16,-27.11 14.117,43.85 -37.715,27.12 z m -103.43,-168.09 14.145,-43.86 -37.16,27.12 -37.164,-27.12 14.14,43.86 -37.719,27.11 46.504,-0.04 14.239,44.48 14.238,-44.44 H 822.5 Z m 14.145,-428.57 -37.16,27.17 -37.164,-27.17 14.14,43.86 -37.719,27.12 46.504,-0.05 14.239,44.49 14.238,-44.44 H 822.5 l -37.719,-27.12 z m -149.543,263.62 46.523,-0.09 14.239,44.53 14.238,-44.44 h 46.5 l -37.719,-27.12 14.117,-43.85 -37.136,27.11 -37.161,-27.11 14.141,43.85 z m 764.217,192.55 14.27,44.48 14.26,-44.43 h 46.48 l -37.75,-27.07 14.17,-43.86 -37.16,27.12 -37.16,-27.12 14.16,43.86 -37.74,27.07 z M 214.613,1991.27 V 817.211 H 1975.68 V 1991.27 H 214.613"
+         style="fill:#2a3c93;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path12" />
+      <g
+         id="g14"
+         transform="scale(10)">
+        <text
+           xml:space="preserve"
+           transform="matrix(1,0,0,-1,53.5668,48.1969)"
+           style="font-variant:normal;font-weight:bold;font-size:21px;font-family:Arial;-inkscape-font-specification:Arial-BoldMT;writing-mode:lr-tb;fill:#2a3c93;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           id="text20"><tspan
+             x="0 12.8276 25.654699 38.4828 51.310894 62.989594 75.816689 81.651649 94.478745 106.15844"
+             y="0"
+             sodipodi:role="line"
+             id="tspan16">Funded by </tspan><tspan
+             x="-43.753101 -36.760101 -23.9291 -12.2531 -6.4151001 7.5918999 20.422899 28.588696 41.415794 54.242889 65.922585 77.602287 90.429382 96.264343 111.42934 124.25644 130.0914 142.91849"
+             y="25.200001"
+             sodipodi:role="line"
+             id="tspan18">the European Union</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

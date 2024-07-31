@@ -1,5 +1,17 @@
+/*
+ * SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+ * SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 main {
   min-width: 80vw;
+}
+
+.particles-bg-canvas-self{
+  background: #ffffff;
+  max-height: 300px;
 }
 
 div.MuiGrid-container.responsive-2-column-grid {

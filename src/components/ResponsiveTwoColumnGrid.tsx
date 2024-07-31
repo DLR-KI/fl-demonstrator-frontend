@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Divider, Grid, GridProps, Paper, PaperProps } from "@mui/material";
 import { styled } from '@mui/material/styles';
 
@@ -7,6 +11,13 @@ export type TwoColumnGridDataRow = [TwoColumnGridDatum, TwoColumnGridDatum];
 export type TwoColumnGridData = TwoColumnGridDataRow[];
 export type TwoColumnGridProps = { data?: TwoColumnGridData, gridProps?: GridProps } & PaperProps;
 
+/**
+ * ResponsiveTwoColumnGrid is a functional component that renders a responsive two-column grid.
+ *
+ * @param {TwoColumnGridProps} props - The properties passed to the component.
+ *
+ * @returns {JSX.Element} The ResponsiveTwoColumnGrid component.
+ */
 const ResponsiveTwoColumnGrid = (props: TwoColumnGridProps) => {
   const { data, children, gridProps, ...paperProps } = props;
   const GridPaper = styled(Paper)(({ theme }) => ({

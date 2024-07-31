@@ -1,6 +1,10 @@
-# Pages
+<!--
+SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
 
-![nature](https://s1.picswalls.com/wallpapers/2017/12/11/hd-nature-wallpaper_123026234_313.jpg)
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+# Pages
 
 ## Log In
 

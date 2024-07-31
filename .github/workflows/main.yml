@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 name: Main
 
 on:
@@ -29,6 +34,21 @@ jobs:
         run: npm install --no-save markdownlint-cli2
       - name: Start static code analysis
         run: npm run lint:doc --silent
+
+  license-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create dummy requirements.txt
+        run: touch requirements.txt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install reuse
+      - name: Start license check
+        run: reuse lint
 
   build-and-push-docker-image:
     needs: [tests, lint-doc]
@@ -71,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Touch requirements.txt
+      - name: Create dummy requirements.txt
         run: touch requirements.txt
       - uses: actions/setup-python@v5
         with:

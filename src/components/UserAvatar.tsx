@@ -1,9 +1,23 @@
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Avatar, AvatarProps, Tooltip } from "@mui/material";
 import { minidenticon } from "minidenticons";
 
 import { IUser } from "../services/User";
 
-
+/**
+ * UserAvatar is a functional component that displays a user's avatar.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {(IUser|string)} props.user - The user object or a string.
+ * @param {AvatarProps} avatarProps - The props for the Avatar component.
+ * @param {string} props.key - The key property.
+ * @param {Object} props.sx - The sx property for styling.
+ *
+ * @returns {JSX.Element} The UserAvatar component.
+ */
 const UserAvatar = (props: { user: IUser | string } & AvatarProps) => {
   const { user, key, sx, ...avatarProps } = props;
   const tooltip = typeof user === "string"

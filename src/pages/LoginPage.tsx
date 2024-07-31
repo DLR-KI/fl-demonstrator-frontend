@@ -1,17 +1,21 @@
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Alert, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { userService } from "../services/User";
+import { login } from "../services/User";
 import DlrLogo from "../static/img/DLR_Signet_black.png";
 
 
@@ -28,7 +32,15 @@ function Copyright(props: any) {
   );
 }
 
-
+/**
+ * This function represents the login page component in the application.
+ * It handles the user login process by taking the user's credentials (username and password),
+ * and then it calls the login function with these credentials.
+ * If the credentials are correct, it navigates to the main page ("/").
+ * If the credentials are incorrect, it sets the 'wrongCredentialsEntered' state to true, and navigates back to the login page.
+ *
+ * @returns {JSX.Element} Returns a JSX element that represents the login page.
+ */
 const LoginPage = () => {
   const navigate = useNavigate();
   const [wrongCredentialsEntered, setWrongCredentialsEntered] = useState(false);
@@ -38,13 +50,14 @@ const LoginPage = () => {
     const data = new FormData(event.currentTarget);
     const username = String(data.get("username"));
     const password = String(data.get("password"));
-    await userService.login(username, password);
-    if (!userService.getCredentials()) {
-      setWrongCredentialsEntered(true);
-      navigate("/login");
+    let response = await login(username, password);
+    if (response.status < 300) {
+      localStorage.setItem("user", JSON.stringify({ "username": username, "password": password }));
+      navigate("/");
     }
     else {
-      navigate("/");
+      setWrongCredentialsEntered(true);
+      navigate("/login");
     }
   };
 
@@ -59,9 +72,9 @@ const LoginPage = () => {
       </Stack>
 
       <Box
+        display="flex"
         sx={{
           marginTop: 5,
-          display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
@@ -72,6 +85,11 @@ const LoginPage = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        {wrongCredentialsEntered &&
+          <Alert severity="error" sx={{ mt: 3, mb: 2 }}>
+            You have entered a wrong username or password!
+          </Alert>
+        }
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -93,11 +111,7 @@ const LoginPage = () => {
             id="password"
             autoComplete="current-password"
           />
-          {wrongCredentialsEntered && <Alert severity="error">You have entered a wrong username or password!</Alert>}
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+
           <Button
             type="submit"
             fullWidth
@@ -106,19 +120,8 @@ const LoginPage = () => {
           >
             Sign In
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid> */}
         </Box>
+
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>

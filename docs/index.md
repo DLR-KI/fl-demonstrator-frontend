@@ -1,14 +1,17 @@
 ---
 title: Home
 ---
+<!--
+SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 
 <!-- markdownlint-disable-next-line MD025 -->
 # Federated Learning Demonstrator Frontend
 
 ![pipeline](https://github.com/DLR-KI/fl-demonstrator/badges/main/pipeline.svg?style=flat-square)
 ![coverage](https://github.com/DLR-KI/fl-demonstrator/badges/main/coverage.svg?style=flat-square)
-
-![foster-lake](https://my.alfred.edu/zoom/_images/foster-lake.jpg)
 
 The frontend is written in [TypeScript](https://www.typescriptlang.org) using the [React](https://react.dev) framework.
 It is adaptive, meaning you can use it on every device like a smartphone, tablet or desktop computer.
@@ -32,7 +35,7 @@ docker run --name frontend \
     -e FL_DJANGO_SERVER_NAME=web:8000 \
     -p 8080:8080 \
     --network fl-demo \
-    ghcr.io/dlr-ki/fl-frontend:main
+    ghcr.io/dlr-ki/fl-demonstrator-frontend:main
 ```
 
 By default, the frontend exposes and runs on port `3000`.

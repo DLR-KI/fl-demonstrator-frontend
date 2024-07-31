@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 FROM node:alpine AS builder
 
 WORKDIR /app
@@ -20,6 +25,12 @@ RUN npm run build
 
 #FROM nginx:stable-alpine-slim
 FROM nginxinc/nginx-unprivileged
+
+# fix path permissions
+USER root
+RUN mkdir /app && \
+    chown -R nginx:nginx /app
+USER nginx
 
 # add Django static and Nginx configurations files
 ADD --chown=nginx:nginx ./docker/admin.tar.gz ./docker/rest_framework.tar.gz /app/static/

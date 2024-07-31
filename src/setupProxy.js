@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 

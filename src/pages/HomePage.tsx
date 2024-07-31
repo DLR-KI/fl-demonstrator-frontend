@@ -1,27 +1,45 @@
-import { AvatarGroup, Button, Card, CardActions, CardContent, Container, Divider, Paper, Stack, styled, useMediaQuery, useTheme } from "@mui/material";
-import Box from "@mui/material/Box";
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+import { Button, Card, CardContent, CardHeader, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
-import { useState, useEffect } from 'react';
-import { ResponsiveContainer } from 'recharts';
-
-import { renderRadarChart, renderRadialBarChart } from '../components/Charts';
-import { getTrainings, ITraining, TrainingState, TrainingStateLabel } from '../services/Trainings';
-
-import DlrLogo from "../static/img/DLR_Logo_EN_black.png";
-import EcoSystem from "../static/img/ecosystem.drawio.png";
-import React from "react";
-import UserAvatar from "../components/UserAvatar";
-import { IUser, userService } from "../services/User";
+import { PieChart } from '@mui/x-charts/PieChart';
+import ParticlesBg from "particles-bg";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { colors, getParticipantChartByKey } from "../components/Utils";
+import { IMetric, getMetric } from "../services/Metric";
+import { ITraining, TrainingState, TrainingStateLabel, getTrainings } from '../services/Trainings';
+import { IUser, getUsers } from "../services/User";
 
+import { getColors } from "../components/Metrics";
+
+/**
+ * Main component of the application.
+ * It fetches and manages the state of trainings, models, metrics, and participants.
+ * It also renders the main UI of the application including training states, newest training accuracy, and navigation buttons.
+ *
+ * @returns {JSX.Element} The rendered React component
+ */
 const Main = () => {
   const navigate = useNavigate();
 
   const [trainings, setTrainings] = useState<ITraining[]>([]);
   const [lastTraining, setLastTraining] = useState<ITraining>();
+  const [lastMetrics, setLastMetrics] = useState<IMetric[]>();
+
   const [participants, setParticipants] = useState<IUser[]>([]);
+
+
+  const colorsLineChart = getColors(participants.length);
+
+  const newParticipants = participants.map((participant, index) => ({
+    ...participant,
+    colorId: index,
+    color: colorsLineChart[index]
+  }));
 
   useEffect(() => {
     getTrainings().then(setTrainings);
@@ -29,126 +47,125 @@ const Main = () => {
 
   useEffect(() => {
     if (!trainings) return;
-    let sortedTrainings = trainings.sort((a,b) => new Date(a.lastUpdate) < new Date(b.lastUpdate) ? -1 : 1)
+    // Get newest training
+    let sortedTrainings = trainings.sort((a, b) => new Date(a.lastUpdate) < new Date(b.lastUpdate) ? -1 : 1)
     setLastTraining(sortedTrainings.at(-1));
     if (!lastTraining) return;
-    userService.getUsers(lastTraining.participants)
-      .then((participants) => participants.sort((a, b) => a.username.localeCompare(b.username)))
-      .then(setParticipants);
+    console.log(lastTraining)
+
+    getMetric(lastTraining.model).then(setLastMetrics);
+    getUsers(lastTraining.participants).then(setParticipants);
   }, [trainings, lastTraining]);
 
-  const trainingCard = (
-    <React.Fragment>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Training States
-        </Typography>
-        <Typography variant="body2" component="div">
-          {trainings.filter(x => x.state===TrainingState.INITIAL).length} in state {TrainingStateLabel[TrainingState.INITIAL]}
-        </Typography>
-        <Typography variant="body2" component="div">
-        {trainings.filter(x => x.state===TrainingState.ONGOING).length} in state {TrainingStateLabel[TrainingState.ONGOING]}
-        </Typography>
-        <Typography variant="body2" component="div">
-        {trainings.filter(x => x.state===TrainingState.COMPLETED).length} in state {TrainingStateLabel[TrainingState.COMPLETED]}
-        </Typography>
-        <Typography variant="body2" component="div">
-        {trainings.filter(x => x.state===TrainingState.ERROR).length} in state {TrainingStateLabel[TrainingState.ERROR]}
-        </Typography>
-        <Typography variant="body2" component="div">
-        {trainings.filter(x => x.state===TrainingState.SWAG_ROUND).length} in state {TrainingStateLabel[TrainingState.SWAG_ROUND]}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={() => navigate("/trainings")}>Learn More</Button>
-        </CardActions>
-    </React.Fragment>
-  );
+  useEffect(() => {
+    if (!lastTraining) return;
 
+    const interval = setInterval(() => {
+      getMetric(lastTraining.model).then(setLastMetrics);
+    }, 10000); // 10000 milliseconds = 10 seconds
 
-  const lastTrainingCard = (lastTraining: ITraining) => (
-    <React.Fragment>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        Last Training
-        </Typography>
-        <Typography variant="body2" component="div">
-        In state {TrainingStateLabel[lastTraining.state]}.
-        </Typography>
-        <Typography variant="body2" component="div">
-        The aggregation method is {lastTraining.aggregationMethod}.
-        </Typography>
-        <Typography variant="body2" component="div">
-        Uncertainty method is {lastTraining.uncertaintyMethod}.
-        </Typography>
-        <Typography variant="body2" component="div">
-        Last updated {new Date(lastTraining.lastUpdate).toLocaleString()}.
-        </Typography>
-        <Typography variant="body2" component="div">
-        Participants:
-        </Typography>
-        <AvatarGroup
-          className="MultilineMuiAvatarGroup-root"
-          sx={{ flexWrap: "wrap-reverse", justifyContent: "left" }}
-          max={50}
-        >
-          {participants.map((participant: IUser) => (
-            <UserAvatar user={participant} key={participant.id}></UserAvatar>
-          ))}
-        </AvatarGroup>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={() => navigate("/training/" + lastTraining.id)}>Learn More</Button>
-      </CardActions>
-    </React.Fragment>
-  );
-
+    return () => clearInterval(interval);
+  }, [lastTraining]);
 
   return (
-    <Box>
-
-      <Typography variant="h5">
-      Training Summary
-      </Typography>
-      <Divider />
-
-      {trainings &&
-      <Stack direction={"row"} spacing={8} m={3}>
-        <Card variant="outlined" sx={{ minWidth: 100 }}>{trainingCard}</Card>
-        {lastTraining &&
-        <Card variant="outlined">{lastTrainingCard(lastTraining)}</Card>}
-      </Stack>}
-
-      <Typography variant="h5">
-      Architecture
-      </Typography>
-      <Divider />
-      <Container sx={{ m: 2, mt: 4, mb: 4 }}>
-        <Stack direction="row" justifyContent="center">
-          <img src={EcoSystem} alt="ecosystem" style={{ maxWidth: "100%" }} />
-        </Stack>
-      </Container>
-
-      <Typography variant="h5">
-      Information
-      </Typography>
-      <Divider />
-      <Container sx={{ m: 2, mt: 4, mb: 4 }}>
-        <Typography>
-          Federated learning (also known as collaborative learning) is a machine learning technique that trains an algorithm via multiple independent sessions, each using its own dataset. This approach stands in contrast to traditional centralized machine learning techniques where local datasets are merged into one training session, as well as to approaches that assume that local data samples are identically distributed.
-
-          Federated learning enables multiple actors to build a common, robust machine learning model without sharing data, thus addressing critical issues such as data privacy, data security, data access rights and access to heterogeneous data. Its applications engage industries including defense, telecommunications, Internet of Things, and pharmaceuticals. A major open question is when/whether federated learning is preferable to pooled data learning. Another open question concerns the trustworthiness of the devices and the impact of malicious actors on the learned model.
+    <Fragment>
+      <ParticlesBg type="cobweb" bg={true} num={50} />
+      <Stack
+        height={200}
+        alignItems="center"
+        textAlign="center"
+        mt={5}
+      >
+        <Typography variant="h2" component="h2" fontFamily="initial" color="primary">
+          Let's learn together
         </Typography>
-      </Container>
-
-      <Divider />
-
-      <Container sx={{ m: 2, mt: 4, mb: 4 }}>
-        <Stack direction="row">
-          <img src={DlrLogo} alt="Logo" width="280" />
+        <Stack
+          direction={"row"}
+          spacing={{ xs: 0, sm: 2 }}
+        >
+          <Typography variant="h4" component="h2" color={colors[0]}>
+            federated
+          </Typography>
+          <Typography variant="h4" component="h2" color={colors[0]}>
+            •
+          </Typography>
+          <Typography variant="h4" component="h2" color={colors[1]}>
+            secure
+          </Typography>
+          <Typography variant="h4" component="h2" color={colors[1]}>
+            •
+          </Typography>
+          <Typography variant="h4" component="h2" color={colors[2]}>
+            efficient
+          </Typography>
         </Stack>
-      </Container>
-    </Box>
+
+
+      </Stack>
+
+      <Stack
+        alignItems="center"
+        textAlign="center"
+        m={5}
+      >
+        <Button variant="contained" onClick={() => navigate("/trainings")} disableElevation size="large" >
+          My Trainings
+        </Button>
+      </Stack>
+
+
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        direction={{ xs: 'column', sm: 'column', md: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        <Card variant="outlined" sx={{ width: '100%', height: 450 }}  >
+          <CardHeader
+            title="Training States"
+            subheader={trainings && "Total: " + trainings.length}
+          />
+          <CardContent>
+
+            <PieChart
+              colors={colors} // Use palette
+              series={[
+                {
+                  highlightScope: { faded: 'global', highlighted: 'item' },
+                  faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                  data: [
+                    { id: 0, value: trainings.filter(x => x.state === TrainingState.INITIAL).length, label: TrainingStateLabel[TrainingState.INITIAL] },
+                    { id: 1, value: trainings.filter(x => x.state === TrainingState.ONGOING).length, label: TrainingStateLabel[TrainingState.ONGOING] },
+                    { id: 2, value: trainings.filter(x => x.state === TrainingState.COMPLETED).length, label: TrainingStateLabel[TrainingState.COMPLETED] },
+                    { id: 3, value: trainings.filter(x => x.state === TrainingState.SWAG_ROUND).length, label: TrainingStateLabel[TrainingState.SWAG_ROUND] },
+                    { id: 4, value: trainings.filter(x => x.state === TrainingState.ERROR).length, label: TrainingStateLabel[TrainingState.ERROR] },
+
+                  ],
+                },
+              ]}
+              margin={{ right: 200 }}
+              height={250}
+            />
+          </CardContent>
+
+        </Card>
+        <Card variant="outlined" sx={{ width: '100%', height: 450 }}>
+          <CardHeader
+            title="Newest Training Accuracy"
+            subheader={lastTraining && "id: " + lastTraining.id}
+          />
+          <CardContent>
+            {lastMetrics && participants && getParticipantChartByKey(lastMetrics, newParticipants, "Accuracy", "all", 360, 160)}
+          </CardContent>
+
+
+
+        </Card>
+
+      </Stack>
+
+
+    </Fragment>
   );
 };
 

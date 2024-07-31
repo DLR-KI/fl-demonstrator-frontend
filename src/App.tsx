@@ -1,17 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import "./App.scss";
 
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
-import ProfilePage from "./pages/ProfilePage";
-import ModelsPage from "./pages/ModelsPage";
-import TrainingsPage from "./pages/TrainingsPage";
+import AboutPage from "./pages/AboutPage";
+import AdminPage from "./pages/AdminPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 import TrainingDetailsPage from "./pages/TrainingDetailsPage";
+import TrainingsPage from "./pages/TrainingsPage";
 
 const theme = createTheme({
   palette: {
@@ -28,7 +33,11 @@ const theme = createTheme({
   },
 });
 
-
+/**
+ * The main App component that sets up the theme, the router and all the routes.
+ *
+ * @returns {JSX.Element} The rendered App component.
+ */
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -66,20 +75,20 @@ const App = () => {
             }
             />
 
-            <Route path="models/" element={
+            <Route path="about" element={
               <PrivateRoute>
-                <ModelsPage />
+                <AboutPage />
               </PrivateRoute>
             }
             />
 
-            {/* TODO: ParticipantsPage is still hard coded */}
-            {/* <Route path="participants/" element={
+
+            <Route path="admin/" element={
               <PrivateRoute>
-                <ParticipantsPage />
+                <AdminPage />
               </PrivateRoute>
             }
-            /> */}
+            />
 
             <Route path="profile/" element={
               <PrivateRoute>
@@ -87,7 +96,12 @@ const App = () => {
               </PrivateRoute>
             }
             />
-
+            {/*<Route path="inference/" element={
+              <PrivateRoute>
+                <InferencePage/>
+              </PrivateRoute>
+            }
+          />*/}
             {/* <Route path="*" element={<NoPage />} /> */}
 
           </Route>

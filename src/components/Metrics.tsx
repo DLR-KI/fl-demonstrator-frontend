@@ -1,99 +1,110 @@
-import { Button, Dialog, DialogTitle, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import Box from "@mui/material/Box";
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+// SPDX-FileCopyrightText: 2024 Martin Lanz <martin.lanz@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
 
-import { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { IMetric } from "../services/Metric";
-import { renderLineChart } from "./Charts";
+import { ITraining } from "../services/Trainings";
+import { IUser } from "../services/User";
+import { ParticipantLineChart } from "./ParticipantLineChart";
+import { getMetricKeys } from "./Utils";
 
-
-export interface SimpleDialogProps {
-  open: boolean;
-  selectedValue: string;
-  onClose: (value: string) => void;
-}
-
-function SimpleDialog(props: Readonly<SimpleDialogProps>) {
-  const { onClose, selectedValue, open } = props;
-  const handleClose = () => onClose(selectedValue);
-  const handleListItemClick = (value: string) => onClose(value);
-
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set Filters</DialogTitle>
-      <List sx={{ pt: 0 }}>
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick("Filter1")}  // TODO
-          >
-            <ListItemText primary="Filter 1" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick("Filter2")}  // TODO
-          >
-            <ListItemText primary="Filter 2" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Dialog>
-  );
-}
-
-const Metrics = ({ metrics }: { metrics: IMetric[] }) => {
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = (value: string) => setOpen(false);
-
-  // metricsByKey is for example
-  // [
-  //   [{id: ..., key: "Accuracy", value_float: ...}, ...],
-  //   [{id: ..., key: "NLLoss", value_float: ...}, ...]
-  // ]
-  const keys = Array.from(new Set(metrics.map(metric => metric.key)).values());
-  const steps = Array.from(new Set(metrics.map(metric => metric.step)).values());
-  const metricsByKey = keys.map(key => metrics.filter(metric => metric.key === key));
-
-  const buildPlot = (metrics: IMetric[], yAxisLabel: string) => {
-    // TODO: What about binary metrics (valueBinary)?
-    const m = new Map<number, number>();
-    const n = new Map<number, number>();
-    for (const { step, valueFloat } of metrics) {
-      m.set(step, (m.get(step) ?? 0) + (valueFloat ?? 0));
-      n.set(step, (n.get(step) ?? 0) + 1);
-    }
-    const x = [];
-    for (const step of steps) {
-      x[step - 1] = { step, valueFloat: (m.get(step) ?? 0) / (n.get(step) ?? 0) };
-    }
-    return { data: x, xAxisDataKey: "step", yAxisDataKeys: ["valueFloat"], xAxisLabel: "", yAxisLabel: yAxisLabel }
+/**
+ * Converts HSL color values to a hexadecimal string.
+ *
+ * @param h - The hue value (0-360).
+ * @param s - The saturation value (0-100).
+ * @param l - The lightness value (0-100).
+ * @returns The hexadecimal color string.
+ */
+function hslToHex(h: number, s: number, l: number): string {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
   };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+/**
+ * Generates an array of colors in hexadecimal format.
+ *
+ * @param n - The number of colors to generate.
+ * @returns An array of hexadecimal color strings.
+ */
+export function getColors(n: number): string[] {
+  if (n < 1) return [];
+  return Array.from({ length: n }, (_, i) => {
+    const hue = i * (360 / n) % 360;
+    return hslToHex(hue, 75, 75);
+  });
+}
+
+/**
+ * Props for the Metrics component.
+ */
+export interface MetricsProps {
+  metrics: IMetric[];
+  training: ITraining;
+  participants: IUser[];
+}
+
+/**
+ * Metrics component that renders a ParticipantLineChart based on the provided metrics, training, and participants.
+ *
+ * @param props - The properties for the Metrics component.
+ * @returns The rendered Metrics component.
+ */
+const Metrics = (props: Readonly<MetricsProps>) => {
+  const [metricKey, setMetricKey] = useState<string>('');
+
+  useEffect(() => {
+    const metricKeys = getMetricKeys(props.metrics);
+    if (metricKeys.length > 0 && !metricKey) {
+      setMetricKey(metricKeys[0]);
+    }
+  }, [props.metrics, metricKey]);
+
+  /**
+   * Handles the change of the selected metric key.
+   *
+   * @param event - The mouse event triggered by the user interaction.
+   * @param newKey - The new metric key selected.
+   */
+  const handleChange = (event: React.MouseEvent<HTMLElement>, newKey: string | null) => {
+    if (newKey !== null) {
+      setMetricKey(newKey);
+    }
+  };
+
+  const colors = getColors(props.participants.length);
+
+  const newParticipants = props.participants.map((participant, index) => ({
+    ...participant,
+    colorId: index,
+    color: colors[index]
+  }));
 
   return (
     <>
-      {metricsByKey.map((metrics, index: number) => (
-        <Box key={keys[index]}>
-          {metrics && renderLineChart(buildPlot(metrics, keys[index]))}
-          {/* TODO: Implement "View Raw Data" */}
-          <Button>
-            View Raw Data
-          </Button>
-          {/* TODO: Implement "Filter" (maybe filter by client and mean) */}
-          <Button onClick={handleClickOpen}>
-            Filter
-          </Button>
-          <SimpleDialog
-            open={open}
-            onClose={handleClose}
-            selectedValue={""}
-          />
-        </Box>
-      ))}
+      {metricKey && (
+        <ParticipantLineChart
+          metricKey={metricKey}
+          metrics={props.metrics}
+          participants={newParticipants}
+          handleChange={handleChange}
+        />
+      )}
     </>
   );
 };
 
 export default Metrics;
+
+
+
+
+

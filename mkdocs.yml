@@ -1,7 +1,16 @@
+# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 site_name: Federated Learning Demonstrator Frontend
 
 repo_name: fl-frontend
 repo_url: https://github.com/DLR-KI/fl-demonstrator-frontend
+
+nav:
+  - Home: index.md
+  - API: "api/index.html"
 
 theme:
   name: material
@@ -57,7 +66,3 @@ copyright: |
     DLR KI ALG
   </a>
 
-nav:
-  - Home: index.md
-  - Pages: pages.md
-  - About: about.md

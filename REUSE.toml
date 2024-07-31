@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+# SPDX-FileCopyrightText: 2024 Benedikt Franke <benedikt.franke@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+SPDX-PackageName = "fl-frontend"
+SPDX-PackageSupplier = ["Johannes Unruh <johannes.unruh@dlr.de>", "Martin Lanz <martin.lanz@dlr.de>", "Tarek Stolz <tarek.stolz@dlr.de>", "Florian Heinrich <florian.heinrich@dlr.de>"]
+SPDX-PackageDownloadLocation = "https://github.com/DLR-KI/fl-demonstrator-frontend"
+
+[[annotations]]
+path = ["package.json", "package-lock.json"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["2024 Johannes Unruh <johannes.unruh@dlr.de>", "2024 Florian Heinrich <florian.heinrich@dlr.de>"]
+SPDX-License-Identifier = "Apache-2.0"

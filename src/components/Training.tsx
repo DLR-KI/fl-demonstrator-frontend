@@ -1,104 +1,98 @@
-import { Button, Card, CardActions, CardContent, CardHeader, IconButton, Menu, MenuItem, SvgIconProps } from "@mui/material";
-// import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
 
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import StartIcon from "@mui/icons-material/Start";
-import StorageIcon from "@mui/icons-material/Storage";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import LayersIcon from "@mui/icons-material/Layers";
-
+import BarChartIcon from "@mui/icons-material/BarChart";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { IModel } from "../services/Models";
+import { ITraining, TrainingState, TrainingStateLabel } from "../services/Trainings";
+import PulsatingDotIcon from "./PulsatingDotIcon";
 
-import { ITraining, TrainingState } from "../services/Trainings";
-import { IModel, getModel } from "../services/Models";
-import { useEffect, useState } from "react";
-import AlertDialogSlide from "./SlideInDialog";
-
-
-export const TrainingStatusIcon = (props: SvgIconProps & { state: TrainingState }) => {
-  let { state, ...iconProps } = props;
-  if (state === TrainingState.INITIAL)
-    return <StartIcon {...iconProps} />;
-  else if (state === TrainingState.COMPLETED)
-    return <CheckCircleOutlineIcon {...iconProps} />;
-  else if (state === TrainingState.ONGOING)
-    return <StorageIcon {...iconProps} />;
-  else if (state === TrainingState.SWAG_ROUND)
-    return <AutorenewIcon {...iconProps} />;
-  else
-    return <ErrorOutlineIcon {...iconProps} />;
+const getPulsatingDotIcon = (state: TrainingState) => {
+  switch (state) {
+    case TrainingState.INITIAL:
+      return <PulsatingDotIcon color="blue" isAnimated={false} />;
+    case TrainingState.ONGOING:
+      return <PulsatingDotIcon color="yellow" />;
+    case TrainingState.COMPLETED:
+      return <PulsatingDotIcon color="green" isAnimated={false} />;
+    case TrainingState.ERROR:
+      return <PulsatingDotIcon color="red" isAnimated={false} />;
+    case TrainingState.SWAG_ROUND:
+      return <PulsatingDotIcon color="orange" />;
+    default:
+      return <PulsatingDotIcon color="black" />;
+  }
 };
 
-
-const Training = ({ training }: { training: ITraining }) => {
+const Training = (props: { training: ITraining, model: IModel }) => {
   const navigate = useNavigate();
-  const [model, setModel] = useState<IModel>();
 
-  useEffect(() => {
-    getModel(training.model).then(setModel);
-  }, []);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleCardClick = () => {
+    navigate("/training/" + props.training.id);
   };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <AlertDialogSlide buttonTitle="Delete" dialogTitle="Do you really want to delete this?" dialogContent="If I were you, I would think twice..." ></AlertDialogSlide>
-    </Menu>
-  );
-
 
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardHeader
-        avatar={<LayersIcon />}
-        action={
-          <IconButton aria-label="settings" onClick={handleProfileMenuOpen}>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={"Training for the " + model?.name }
-        subheader={"Last Update: " + new Date(training.lastUpdate).toLocaleString()}
-      />
-      <CardContent>
-        {/* TODO: Format data table (data below this point) */}
-        <Typography>
-          Id: {training.id}
-        </Typography>
-        <Typography>
-          State: <TrainingStatusIcon state={training.state} sx={{ verticalAlign: "bottom" }} />
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" variant="contained" onClick={() => { navigate("/training/" + training.id); }}>Details</Button>
-      </CardActions>
-      {renderMenu}
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea onClick={handleCardClick}>
+        <CardHeader
+          avatar={<BarChartIcon />}
+          title={"Training for the " + props.model?.name}
+          subheader={new Date(props.training.lastUpdate).toLocaleString()}
+        />
+        <CardContent>
+          <TableContainer component={Paper} elevation={0}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    <Box display="flex" alignItems="center">
+                      <Box component="span" fontWeight="fontWeightBold" flexShrink={0} marginRight={1}>
+                        State:
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box display="flex" alignItems="center">
+                      {TrainingStateLabel[props.training.state]}
+                      <Box marginLeft={1}>
+                        {getPulsatingDotIcon(props.training.state)}
+                      </Box>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    <Box display="flex" alignItems="center">
+                      <Box component="span" fontWeight="fontWeightBold" flexShrink={0} marginRight={1}>
+                        Participants:
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box display="flex" alignItems="center">
+                      {props.training.participants.length}
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };

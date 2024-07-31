@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Federated Learning Demonstrator Frontend
 
 The amazing frontend for the Federated Learning Demonstrator build and optimized for Catena-X.
@@ -131,3 +138,21 @@ In the project directory, the following actions are available:
 - `npm run lint:doc`
 
     Run markdown code analysis for documentation and README.md.
+
+## Credits
+
+<div>
+    <div style="display: inline-block; width: 42%;">
+        <img src="./docs/assets/logo/DLR_Logo_EN_black.svg#gh-light-mode-only" alt="DLR" style="width: 100%;" />
+        <img src="./docs/assets/logo/DLR_Logo_EN_white.svg#gh-dark-mode-only" alt="DLR" style="width: 100%" />
+        <div style="text-align: center;">
+            <img src="./docs/assets/logo/catena-x-black.svg#gh-light-mode-only" alt="Catena-X" style="width: 80%;" />
+            <img src="./docs/assets/logo/catena-x-white.svg#gh-dark-mode-only" alt="Catena-X" style="width: 80%;" />
+        </div>
+    </div>
+    <div style="display: inline-block; width: 55%; float: right;">
+        <img src="./docs/assets/logo/EN_fundedbyEU_VERTICAL_RGB_POS.svg#gh-light-mode-only" alt="European Union" style="width: 44%;" />
+        <img src="./docs/assets/logo/EN_fundedbyEU_VERTICAL_RGB_NEG.svg#gh-dark-mode-only" alt="European Union" style="width: 44%;" />
+        <img src="./docs/assets/logo/bmwk_en.png" alt="BMWK" style="width: 44%; float: right;" />
+    </div>
+</div>

@@ -1,12 +1,13 @@
-import * as React from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Box, Chip } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 
 const ITEM_HEIGHT = 48;
@@ -20,7 +21,15 @@ const MenuProps = {
   },
 };
 
-export default function MultipleSelectCheckmarks({data}: {data: Array<any>}) {
+/**
+ * MultipleSelectCheckmarks is a functional component that allows multiple selection with checkmarks.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array<any>} props.data - The data for the select options.
+ *
+ * @returns {JSX.Element} The MultipleSelectCheckmarks component.
+ */
+export default function MultipleSelectCheckmarks({ data }: { data: Array<any> }) {
   const [selected, setSelected] = useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof selected>) => {
@@ -34,30 +43,30 @@ export default function MultipleSelectCheckmarks({data}: {data: Array<any>}) {
   };
 
   return (
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          label="test"
-          multiple
-          fullWidth
-          value={selected}
-          onChange={handleChange}
-          input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {data.map((d: any) => (
-            <MenuItem key={d} value={d}>
-              <Checkbox checked={selected.indexOf(d) > -1} />
-              <ListItemText primary={d} />
-            </MenuItem>
+    <Select
+      labelId="demo-multiple-checkbox-label"
+      id="demo-multiple-checkbox"
+      label="test"
+      multiple
+      fullWidth
+      value={selected}
+      onChange={handleChange}
+      input={<OutlinedInput label="Tag" />}
+      renderValue={(selected) => (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {selected.map((value) => (
+            <Chip key={value} label={value} />
           ))}
-        </Select>
+        </Box>
+      )}
+      MenuProps={MenuProps}
+    >
+      {data.map((d: any) => (
+        <MenuItem key={d} value={d}>
+          <Checkbox checked={selected.indexOf(d) > -1} />
+          <ListItemText primary={d} />
+        </MenuItem>
+      ))}
+    </Select>
   );
 }

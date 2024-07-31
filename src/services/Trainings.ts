@@ -1,4 +1,8 @@
-import { getAuthenticated, postAuthenticated } from "./Utils";
+// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+import { deleteAuthenticated, getAuthenticated, postAuthenticated } from "./Utils";
 
 
 export enum TrainingState {
@@ -42,22 +46,57 @@ export interface ITraining {
   lastUpdate: Date;
 }
 
-export async function getTraining(id: string) {
+/**
+ * Asynchronously fetches a specific training from the API.
+ *
+ * @param {string} id - The unique ID of the training.
+ * @returns {Promise<ITraining>} A Promise that resolves to the training data.
+ */
+export async function getTraining(id: string): Promise<ITraining> {
   const response = await getAuthenticated<ITraining>(`/api/trainings/${id}/`);
   return response.data;
 }
 
-export async function getTrainings() {
+/**
+ * Asynchronously fetches all trainings from the API.
+ *
+ * @returns {Promise<ITraining[]>} A Promise that resolves to an array of all trainings.
+ */
+export async function getTrainings(): Promise<ITraining[]> {
   const response = await getAuthenticated<ITraining[]>("/api/trainings/");
   return response.data;
 }
 
-export async function createTraining(data: Object) {
+/**
+ * Asynchronously creates a new training in the API.
+ *
+ * @param {Object} data - The data for the new training.
+ * @returns {Promise<any>} A Promise that resolves to the data of the created training.
+ */
+export async function createTraining(data: Object): Promise<any> {
   const response = await postAuthenticated("/api/trainings/", data);
   return response.data;
 }
 
-export async function startTraining(id: string)  {
-  const response = await postAuthenticated(`/api/trainings/${id}/start`);
+
+/**
+ * Asynchronously starts a specific training in the API.
+ *
+ * @param {string} id - The unique ID of the training to start.
+ * @returns {Promise<any>} A Promise that resolves to the response data of the start operation.
+ */
+export async function startTraining(id: string) {
+  const response = await postAuthenticated(`/api/trainings/${id}/start/`);
+  return response.data;
+}
+
+/**
+ * Asynchronously deletes a specific training from the API.
+ *
+ * @param {string} id - The unique ID of the training to delete.
+ * @returns {Promise<any>} A Promise that resolves to the response data of the delete operation.
+ */
+export async function deleteTraining(id: string) {
+  const response = await deleteAuthenticated(`/api/trainings/${id}/`);
   return response.data;
 }

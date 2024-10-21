@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2024 Benedikt Franke <benedikt.franke@dlr.de>
+# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: DLR Federated Learning Logging Base
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Unruh
+    family-names: Johannes
+    email: johannes.unruh@dlr.de
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0009-0003-3214-0331'
+  - given-names: Tarek
+    family-names: Stolz
+    email: tarek.stolz@dlr.de
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0009-0000-5735-4318'
+  - given-names: Martin
+    family-names: Lanz
+    email: martin.lanz@dlr.de
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0009-0004-5430-5587'
+  - given-names: Florian
+    family-names: Heinrich
+    email: florian.heinrich@dlr.de
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0009-0007-0792-7908'
+  - given-names: Benedikt
+    family-names: Franke
+    email: benedikt.franke@dlr.de
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0000-0003-0202-2804'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.13951223
+repository-code: 'https://github.com/DLR-KI/fl-demonstrator-frontend'
+url: 'https://dlr-ki.github.io/fl-demonstrator-frontend/'
+keywords:
+  - Federated Machine Learning
+  - Typescript
+  - React
+date-released: 2024-07-31

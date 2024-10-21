@@ -7,6 +7,8 @@ SPDX-License-Identifier: Apache-2.0
 
 # Federated Learning Demonstrator Frontend
 
+[![DOI](https://zenodo.org/badge/770825672.svg)](https://doi.org/10.5281/zenodo.13951222 )
+
 The amazing frontend for the Federated Learning Demonstrator build and optimized for Catena-X.
 The frontend is written in [TypeScript](https://www.typescriptlang.org) using the [React](https://react.dev) framework.
 

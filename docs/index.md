@@ -10,9 +10,6 @@ SPDX-License-Identifier: CC-BY-4.0
 <!-- markdownlint-disable-next-line MD025 -->
 # Federated Learning Demonstrator Frontend
 
-![pipeline](https://github.com/DLR-KI/fl-demonstrator/badges/main/pipeline.svg?style=flat-square)
-![coverage](https://github.com/DLR-KI/fl-demonstrator/badges/main/coverage.svg?style=flat-square)
-
 The frontend is written in [TypeScript](https://www.typescriptlang.org) using the [React](https://react.dev) framework.
 It is adaptive, meaning you can use it on every device like a smartphone, tablet or desktop computer.
 It connects to the FL Demonstrator [backend](https://github.com/DLR-KI/fl-demonstrator) where the actual Federated Learning is performed.

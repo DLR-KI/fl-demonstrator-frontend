@@ -10,7 +10,7 @@ repo_url: https://github.com/DLR-KI/fl-demonstrator-frontend
 
 nav:
   - Home: index.md
-  - API: "api/index.html"
+#  - API: "api/index.html"
 
 theme:
   name: material

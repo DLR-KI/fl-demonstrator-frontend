@@ -23,19 +23,19 @@
     "test": "react-scripts test"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.169",
-    "@mui/material": "^5.15.20",
-    "@mui/x-charts": "^7.0.0",
-    "axios": "^1.7.2",
-    "axios-case-converter": "^1.1.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.0",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/lab": "^7.0.1-beta.23",
+    "@mui/material": "^7.3.9",
+    "@mui/x-charts": "^8.28.2",
+    "axios": "^1.14.0",
+    "axios-case-converter": "^1.1.1",
     "file-saver": "^2.0.5",
-    "http-proxy-middleware": "^2.0.6",
+    "http-proxy-middleware": "^3.0.5",
     "leaflet": "^1.9.4",
     "markdownlint-cli2": "^0.22.0",
     "minidenticons": "^4.2.1",
@@ -45,18 +45,18 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^5.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@tensorflow/tfjs": "^4.18.0",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@types/file-saver": "^2.0.7",
-    "@types/jest": "^29.5.12",
-    "@types/leaflet": "^1.9.12",
+    "@types/jest": "^30.0.0",
+    "@types/leaflet": "^1.9.21",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "typedoc": "^0.26.2"
+    "typedoc": "^0.26.11"
   },
   "eslintConfig": {
     "extends": [

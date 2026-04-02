@@ -15,11 +15,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:docker": "docker build -t local/fl-frontend:latest .",
-    "build:doc": "python -m mkdocs build",
-    "doc": "python -m mkdocs serve",
+    "build:doc": "uv run mkdocs build",
+    "doc": "uv run mkdocs serve",
     "lint": "npm run lint:code && npm run lint:doc",
     "lint:code": "echo 'No code linting configured'",
-    "lint:doc": "markdownlint-cli2 'docs/**/*.md' README.md",
+    "lint:doc": "markdownlint-cli2 -- 'docs/**/*.md' README.md",
     "test": "react-scripts test"
   },
   "dependencies": {

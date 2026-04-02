@@ -23,34 +23,20 @@ They offer a more user-friendly interface and comprehensive guides to get you st
 
 ## Requirements
 
-### Server
-
 - [Federated Learning Demonstrator Server](https://github.com/DLR-KI/fl-demonstrator)
+- [NodeJS](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 
-### NodeJS
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+    source ~/.bashrc
+    nvm install --lts
+    nvm use --lts
+    ```
 
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-source ~/.bashrc
-nvm list-remote
-#Check relevant version in package.json
-nvm install v<version>
-```
-
-### Python >= 3.8
-
-```bash
-sudo apt install python<version>
-#If not available you can add latest versions with
-sudo add-apt-repository ppa:deadsnakes/ppa 
-```
-
-### Venv
-
-```bash
-#Install venv
-sudo apt install python<version>-venv
-```
+- Python 3.10 or later  
+    `which python`
+- [uv](https://docs.astral.sh/uv/)  
+    `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 ## Install
 
@@ -63,18 +49,9 @@ The documentation is written in markdown and rendered with [MkDocs](https://www.
 Hence, `mkdocs` need to be installed.
 
 ```bash
-# create virtual environment
-virtualenv -p $(which python<version>) .venv
-# or
-python<version> -m venv .venv
-
-source .venv/bin/activate
-
-# update pip (optional)
-python -m pip install -U pip
-
-# install
-python -m pip install -U mkdocs-material
+# install docs dependencies
+uv venv
+uv pip install -U mkdocs-material
 ```
 
 ## Available Scripts

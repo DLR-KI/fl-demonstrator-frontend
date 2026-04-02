@@ -38,13 +38,15 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.10"
+      - name: Create virtual environment
+        run: uv venv
       - name: Install dependencies
         run: uv pip install reuse
       - name: Start license check
         run: uv run reuse lint
 
   build-and-push-docker-image:
-    needs: [tests, lint-doc]
+    needs: [tests, lint-doc, license-check]
     permissions:
       contents: read
       packages: write
@@ -80,7 +82,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build-pages:
-    needs: [tests, lint-doc]
+    needs: [tests, lint-doc, license-check]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -89,6 +91,8 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.10"
+      - name: Create virtual environment
+        run: uv venv
       - name: Install documentation dependencies
         run: uv pip install mkdocs-material
       - name: Build pages

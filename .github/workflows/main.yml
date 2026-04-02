@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-#
+# SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 # SPDX-License-Identifier: Apache-2.0
 
 name: Main
@@ -32,7 +30,7 @@ jobs:
         with:
           node-version: 18
       - name: Install node dependencies
-        run: npm install --no-save markdownlint-cli2
+        run: npm install --no-save "markdownlint-cli2@0.22.0"
       - name: Start static code analysis
         run: npm run lint:doc --silent
 

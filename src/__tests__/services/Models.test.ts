@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-//
+// SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 // SPDX-License-Identifier: Apache-2.0
 
 import { IModel, createModel, getModelFile, getModelMetadata, getModels } from '../../services/Models';

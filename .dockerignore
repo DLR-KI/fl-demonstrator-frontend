@@ -10,3 +10,5 @@ src/setupTests.ts
 !package.json
 !package-lock.json
 !tsconfig.json
+!index.html
+!vite.config.ts

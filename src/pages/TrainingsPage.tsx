@@ -81,7 +81,7 @@ const TrainingsPage: React.FC = () => {
         {filteredTrainings.length > 0 ? (
           <Grid container spacing={{ xs: 2, md: 3 }}>
             {filteredTrainings.map((training: ITraining) => (
-              <Grid item key={training.id}>
+              <Grid key={training.id}>
                 <Training training={training} model={models[training.model]} />
               </Grid>
             ))}

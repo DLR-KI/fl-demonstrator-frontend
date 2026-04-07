@@ -5,10 +5,7 @@ site_name: Federated Learning Demonstrator Frontend
 
 repo_name: fl-frontend
 repo_url: https://github.com/DLR-KI/fl-demonstrator-frontend
-
-nav:
-  - Home: index.md
-#  - API: "api/index.html"
+edit_uri: edit/main/docs/
 
 theme:
   name: material
@@ -45,22 +42,21 @@ extra:
     - icon: dlr-logo
       link: https://www.dlr.de/en
     - icon: dlr-ki
-      link: https://www.dlr.de/ki/en
-    - icon: fontawesome/brands/square-gitlab
-      link: https://github.com/DLR-KI/fl-demonstrator
+      link: https://www.dlr.de/en/ki
+    - icon: fontawesome/brands/square-github
+      link: https://github.com/DLR-KI
 
-#extra_javascript:
-#  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
-#  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
-#  - javascripts/katex.js
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.44/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.44/dist/contrib/auto-render.min.js
+  - javascripts/katex.js
 
 extra_css:
-  #- https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.44/dist/katex.min.css
   - styles/style.css
 
 copyright: |
-  &copy; 2024
+  &copy; 2026
   <a href="https://www.dlr.de/en/ki/about-us/departments/algorithms-hybrid-solutions" target="_blank" rel="noopener">
     DLR KI ALG
   </a>
-

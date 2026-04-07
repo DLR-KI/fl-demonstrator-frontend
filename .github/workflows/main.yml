@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --silent
       - name: Run tests
-        run: npm test --silent -- --all --watchAll=false --coverage --passWithNoTests
+        run: npm test --silent -- --coverage --passWithNoTests
 
   lint-doc:
     runs-on: ubuntu-latest

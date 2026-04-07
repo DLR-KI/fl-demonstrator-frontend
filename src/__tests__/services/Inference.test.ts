@@ -2,12 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { Mock, vi } from 'vitest';
 import { createInference } from '../../services/Inference';
 import { postAuthenticated } from '../../services/Utils';
 
 // Mock the postAuthenticated function
-jest.mock('../../services/Utils', () => ({
-  postAuthenticated: jest.fn(),
+vi.mock('../../services/Utils', () => ({
+  postAuthenticated: vi.fn(),
 }));
 
 describe('createInference', () => {
@@ -39,7 +40,7 @@ describe('createInference', () => {
     };
 
     // Mock implementation of postAuthenticated to resolve with mockResponse
-    (postAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+    (postAuthenticated as Mock).mockResolvedValue(mockResponse);
 
     const result = await createInference(mockData, mockHeaders);
 
@@ -85,7 +86,7 @@ describe('createInference', () => {
     };
 
     // Mock implementation of postAuthenticated to resolve with mockResponse
-    (postAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+    (postAuthenticated as Mock).mockResolvedValue(mockResponse);
 
     const result = await createInference(formData, mockHeaders);
 
@@ -110,7 +111,7 @@ describe('createInference', () => {
     const mockError = new Error('Network Error');
 
     // Mock implementation of postAuthenticated to reject with an error
-    (postAuthenticated as jest.Mock).mockRejectedValue(mockError);
+    (postAuthenticated as Mock).mockRejectedValue(mockError);
 
     await expect(createInference(mockData)).rejects.toThrow('Network Error');
   });

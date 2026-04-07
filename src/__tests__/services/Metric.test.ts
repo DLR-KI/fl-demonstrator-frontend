@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { getMetric, IMetric } from '../../services/Metric';
+import { Mock, vi } from 'vitest';
 import { getAuthenticated } from '../../services/Utils';
 
 // Mock the getAuthenticated function
-jest.mock('../../services/Utils', () => ({
-  getAuthenticated: jest.fn(),
+vi.mock('../../services/Utils', () => ({
+  getAuthenticated: vi.fn(),
 }));
 
 describe('getMetric', () => {
@@ -25,7 +26,7 @@ describe('getMetric', () => {
     };
 
     // Mock implementation of getAuthenticated to resolve with mockResponse
-    (getAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+    (getAuthenticated as Mock).mockResolvedValue(mockResponse);
 
     const result = await getMetric(modelId);
 
@@ -41,7 +42,7 @@ describe('getMetric', () => {
     const mockError = new Error('Network Error');
 
     // Mock implementation of getAuthenticated to reject with an error
-    (getAuthenticated as jest.Mock).mockRejectedValue(mockError);
+    (getAuthenticated as Mock).mockRejectedValue(mockError);
 
     await expect(getMetric(modelId)).rejects.toThrow('Network Error');
   });

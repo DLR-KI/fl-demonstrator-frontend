@@ -2,13 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { IModel, createModel, getModelFile, getModelMetadata, getModels } from '../../services/Models';
+import { Mock, vi } from 'vitest';
 import { getAuthenticated, getAuthenticatedBlob, postAuthenticated } from '../../services/Utils';
 
 // Mock the utility functions
-jest.mock('../../services/Utils', () => ({
-  getAuthenticated: jest.fn(),
-  getAuthenticatedBlob: jest.fn(),
-  postAuthenticated: jest.fn(),
+vi.mock('../../services/Utils', () => ({
+  getAuthenticated: vi.fn(),
+  getAuthenticatedBlob: vi.fn(),
+  postAuthenticated: vi.fn(),
 }));
 
 describe('modelFunctions', () => {
@@ -24,7 +25,7 @@ describe('modelFunctions', () => {
         config: {} as any,
       };
 
-      (getAuthenticatedBlob as jest.Mock).mockResolvedValue(mockResponse);
+      (getAuthenticatedBlob as Mock).mockResolvedValue(mockResponse);
 
       const result = await getModelFile(modelId);
 
@@ -51,7 +52,7 @@ describe('modelFunctions', () => {
         config: {} as any,
       };
 
-      (getAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+      (getAuthenticated as Mock).mockResolvedValue(mockResponse);
 
       const result = await getModelMetadata(modelId);
 
@@ -74,7 +75,7 @@ describe('modelFunctions', () => {
         config: {} as any,
       };
 
-      (getAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+      (getAuthenticated as Mock).mockResolvedValue(mockResponse);
 
       const result = await getModels();
 
@@ -95,7 +96,7 @@ describe('modelFunctions', () => {
         config: {} as any,
       };
 
-      (postAuthenticated as jest.Mock).mockResolvedValue(mockResponse);
+      (postAuthenticated as Mock).mockResolvedValue(mockResponse);
 
       const result = await createModel(mockData);
 
@@ -110,7 +111,7 @@ describe('modelFunctions', () => {
     const modelId = 'model-123';
     const mockError = new Error('Network Error');
 
-    (getAuthenticated as jest.Mock).mockRejectedValue(mockError);
+    (getAuthenticated as Mock).mockRejectedValue(mockError);
 
     await expect(getModelMetadata(modelId)).rejects.toThrow('Network Error');
   });

@@ -12,15 +12,18 @@
     "Florian Heinrich <florian.heinrich@dlr.de>"
   ],
   "scripts": {
-    "start": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api react-scripts start",
-    "build": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api react-scripts build",
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
     "build:docker": "docker build -t local/fl-frontend:latest .",
     "build:doc": "uv run mkdocs build",
     "doc": "uv run mkdocs serve",
     "lint": "npm run lint:code && npm run lint:doc",
     "lint:code": "echo 'No code linting configured'",
     "lint:doc": "markdownlint-cli2 -- 'docs/**/*.md' README.md",
-    "test": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api react-scripts test"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -35,7 +38,6 @@
     "axios": "^1.14.0",
     "axios-case-converter": "^1.1.1",
     "file-saver": "^2.0.5",
-    "http-proxy-middleware": "^3.0.5",
     "leaflet": "^1.9.4",
     "markdownlint-cli2": "^0.22.0",
     "minidenticons": "^4.2.1",
@@ -44,21 +46,21 @@
     "react-dom": "^19.2.4",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.14.0",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.99.0",
-    "web-vitals": "^5.2.0"
+    "sass": "^1.99.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@tensorflow/tfjs": "^4.22.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/file-saver": "^2.0.7",
-    "@types/jest": "^29.5.14",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "cross-env": "^10.1.0",
-    "typedoc": "^0.26.11"
+    "jsdom": "^27.0.0",
+    "typedoc": "^0.26.11",
+    "vite": "^7.1.9",
+    "vitest": "^3.2.4"
   },
   "eslintConfig": {
     "extends": [
@@ -77,5 +79,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "smol-toml": "^1.6.1"
   }
 }

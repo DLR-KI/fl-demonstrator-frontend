@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
     },
     server: {
+      port: 3000,
       proxy: {
         "/api": {
           target: proxyTarget,

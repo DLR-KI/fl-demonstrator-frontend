@@ -21,6 +21,10 @@ This README.md is primarily intended for developers and contributors, providing 
 If you're interested in using or testing this project, we recommend starting with the [GitHub pages](https://dlr-ki.github.io/fl-demonstrator-frontend) which serves this documentation.
 They offer a more user-friendly interface and comprehensive guides to get you started.
 
+For local development, this frontend expects the FL Demonstrator backend to be available under `/api`.
+When running the frontend with Vite, it starts on port `3000` and proxies `/api` requests to `http://localhost:8000` by default.
+If your backend runs on a different port, set `VITE_FL_SERVER_BASE_URL` before starting the dev server.
+
 ## Requirements
 
 - [Federated Learning Demonstrator Server](https://github.com/DLR-KI/fl-demonstrator)
@@ -45,6 +49,18 @@ They offer a more user-friendly interface and comprehensive guides to get you st
 npm install
 ```
 
+## Local Development
+
+Start the backend first.
+If it listens on `http://localhost:8000`, start the frontend like this:
+
+```bash
+VITE_FL_SERVER_BASE_URL=http://localhost:8000 npm start
+```
+
+This launches the Vite dev server.
+Open <http://localhost:3000> to use the application.
+
 The documentation is written in markdown and rendered with [MkDocs](https://www.mkdocs.org) and its [material theme](https://squidfunk.github.io/mkdocs-material).
 Hence, `mkdocs` need to be installed.
 
@@ -64,31 +80,34 @@ In the project directory, the following actions are available:
 
 - `npm start`
 
+- `npm run dev`
+
     Runs the app in the development mode.
+    `npm start` and `npm run dev` are equivalent and both start the Vite dev server.
     Open <http://localhost:3000> to view it in the browser.
 
-    Note: The page will reload if you make edits.
-    You will also see any lint errors in the console.
+    The page reloads automatically when you make edits.
 
 - `npm test`
 
-    Launches the test runner in the interactive watch mode.
-    See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Runs the test suite once with Vitest.
 
-    To launch all tests without any interaction as well as print the current test coverage report:
+    To run the test suite in watch mode:
 
     ```bash
-    npm test --silent -- --all --watchAll=false --coverage --passWithNoTests
+    npm run test:watch
+    ```
+
+    To print a coverage report:
+
+    ```bash
+    npm test -- --coverage
     ```
 
 - `npm run build`
 
     Builds the app for production to the `build` folder.
-    It correctly bundles React in production mode and optimizes the build for the best performance.
-
-    The build is minified and the filenames include the hashes.
-    The app is ready to be deployed!
-    See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    This creates the static assets served by the production container.
 
 - `npm run build:docker`
   
@@ -115,6 +134,10 @@ In the project directory, the following actions are available:
 - `npm run lint:doc`
 
     Run markdown code analysis for documentation and README.md.
+
+- `npm run preview`
+
+    Serves the production build locally for a final verification pass.
 
 ## Credits
 

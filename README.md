@@ -61,13 +61,13 @@ VITE_FL_SERVER_BASE_URL=http://localhost:8000 npm start
 This launches the Vite dev server.
 Open <http://localhost:3000> to use the application.
 
-The documentation is written in markdown and rendered with [MkDocs](https://www.mkdocs.org) and its [material theme](https://squidfunk.github.io/mkdocs-material).
-Hence, `mkdocs` need to be installed.
+The documentation is written in markdown and rendered with [Zensical](https://zensical.org/).
+Hence, `zensical` needs to be installed.
 
 ```bash
 # install docs dependencies
 uv venv
-uv pip install -U mkdocs-material
+uv pip install -U zensical
 ```
 
 ## Available Scripts
@@ -117,11 +117,11 @@ In the project directory, the following actions are available:
 
 - `npm run build:doc`
 
-    Builds the documentation with mkdocs.
+    Builds the documentation with zensical.
 
 - `npm run doc`
 
-    Serves the documentation with mkdocs.
+    Serves the documentation with zensical.
 
 - `npm run lint`
 

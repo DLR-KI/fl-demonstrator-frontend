@@ -30,7 +30,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.9",
     "@mui/lab": "^7.0.1-beta.23",
-    "@mui/material": "^7.3.9",
+    "@mui/material": "^9.0.0",
     "@mui/x-charts": "^8.28.2",
     "axios": "^1.14.0",
     "axios-case-converter": "^1.1.1",

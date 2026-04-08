@@ -94,9 +94,9 @@ jobs:
       - name: Create virtual environment
         run: uv venv
       - name: Install documentation dependencies
-        run: uv pip install mkdocs-material
+        run: uv pip install zensical
       - name: Build pages
-        run: uv run mkdocs build
+        run: uv run zensical build
       - name: Fix permissions
         run: |
           chmod -c -R +rX "site/" | while read line; do

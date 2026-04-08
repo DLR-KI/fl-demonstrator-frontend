@@ -1,19 +1,17 @@
-# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-#
+# SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 # SPDX-License-Identifier: Apache-2.0
 
 FROM node:alpine AS builder
 
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH=/app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json package-lock.json /app/
 RUN npm ci --silent
 
 # add app
-COPY ./tsconfig.json /app/tsconfig.json
+COPY ./index.html ./tsconfig.json ./vite.config.ts /app/
 COPY ./public /app/public
 COPY ./src /app/src
 

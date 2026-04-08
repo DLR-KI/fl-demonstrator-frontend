@@ -1,7 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-
+SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -23,36 +21,26 @@ This README.md is primarily intended for developers and contributors, providing 
 If you're interested in using or testing this project, we recommend starting with the [GitHub pages](https://dlr-ki.github.io/fl-demonstrator-frontend) which serves this documentation.
 They offer a more user-friendly interface and comprehensive guides to get you started.
 
+For local development, this frontend expects the FL Demonstrator backend to be available under `/api`.
+When running the frontend with Vite, it starts on port `3000` and proxies `/api` requests to `http://localhost:8000` by default.
+If your backend runs on a different port, set `VITE_FL_SERVER_BASE_URL` before starting the dev server.
+
 ## Requirements
 
-### Server
-
 - [Federated Learning Demonstrator Server](https://github.com/DLR-KI/fl-demonstrator)
+- [NodeJS](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 
-### NodeJS
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+    source ~/.bashrc
+    nvm install --lts
+    nvm use --lts
+    ```
 
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-source ~/.bashrc
-nvm list-remote
-#Check relevant version in package.json
-nvm install v<version>
-```
-
-### Python >= 3.8
-
-```bash
-sudo apt install python<version>
-#If not available you can add latest versions with
-sudo add-apt-repository ppa:deadsnakes/ppa 
-```
-
-### Venv
-
-```bash
-#Install venv
-sudo apt install python<version>-venv
-```
+- Python 3.10 or later  
+    `which python`
+- [uv](https://docs.astral.sh/uv/)  
+    `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 ## Install
 
@@ -61,22 +49,25 @@ sudo apt install python<version>-venv
 npm install
 ```
 
+## Local Development
+
+Start the backend first.
+If it listens on `http://localhost:8000`, start the frontend like this:
+
+```bash
+VITE_FL_SERVER_BASE_URL=http://localhost:8000 npm start
+```
+
+This launches the Vite dev server.
+Open <http://localhost:3000> to use the application.
+
 The documentation is written in markdown and rendered with [MkDocs](https://www.mkdocs.org) and its [material theme](https://squidfunk.github.io/mkdocs-material).
 Hence, `mkdocs` need to be installed.
 
 ```bash
-# create virtual environment
-virtualenv -p $(which python<version>) .venv
-# or
-python<version> -m venv .venv
-
-source .venv/bin/activate
-
-# update pip (optional)
-python -m pip install -U pip
-
-# install
-python -m pip install -U mkdocs-material
+# install docs dependencies
+uv venv
+uv pip install -U mkdocs-material
 ```
 
 ## Available Scripts
@@ -89,31 +80,34 @@ In the project directory, the following actions are available:
 
 - `npm start`
 
+- `npm run dev`
+
     Runs the app in the development mode.
+    `npm start` and `npm run dev` are equivalent and both start the Vite dev server.
     Open <http://localhost:3000> to view it in the browser.
 
-    Note: The page will reload if you make edits.
-    You will also see any lint errors in the console.
+    The page reloads automatically when you make edits.
 
 - `npm test`
 
-    Launches the test runner in the interactive watch mode.
-    See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Runs the test suite once with Vitest.
 
-    To launch all tests without any interaction as well as print the current test coverage report:
+    To run the test suite in watch mode:
 
     ```bash
-    npm test --silent -- --all --watchAll=false --coverage --passWithNoTests
+    npm run test:watch
+    ```
+
+    To print a coverage report:
+
+    ```bash
+    npm test -- --coverage
     ```
 
 - `npm run build`
 
     Builds the app for production to the `build` folder.
-    It correctly bundles React in production mode and optimizes the build for the best performance.
-
-    The build is minified and the filenames include the hashes.
-    The app is ready to be deployed!
-    See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    This creates the static assets served by the production container.
 
 - `npm run build:docker`
   
@@ -140,6 +134,10 @@ In the project directory, the following actions are available:
 - `npm run lint:doc`
 
     Run markdown code analysis for documentation and README.md.
+
+- `npm run preview`
+
+    Serves the production build locally for a final verification pass.
 
 ## Credits
 

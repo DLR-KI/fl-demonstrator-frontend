@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-#
+# SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 # SPDX-License-Identifier: Apache-2.0
 
 name: Main
@@ -14,45 +12,41 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/hydrogen'
-          cache: 'npm'
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
       - name: Install dependencies
         run: npm ci --silent
       - name: Run tests
-        run: npm test --silent -- --all --watchAll=false --coverage --passWithNoTests
+        run: npm test --silent -- --coverage --passWithNoTests
 
   lint-doc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
       - name: Install node dependencies
-        run: npm install --no-save markdownlint-cli2
+        run: npm install --no-save "markdownlint-cli2@0.22.0"
       - name: Start static code analysis
         run: npm run lint:doc --silent
 
   license-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Create dummy requirements.txt
         run: touch requirements.txt
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v7
         with:
-          python-version: '3.10'
-          cache: 'pip'
+          python-version: "3.10"
+      - name: Create virtual environment
+        run: uv venv
       - name: Install dependencies
-        run: pip install reuse
+        run: uv pip install reuse
       - name: Start license check
-        run: reuse lint
+        run: uv run reuse lint
 
   build-and-push-docker-image:
-    needs: [tests, lint-doc]
+    needs: [tests, lint-doc, license-check]
     permissions:
       contents: read
       packages: write
@@ -62,16 +56,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
@@ -80,7 +74,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: ${{ contains(github.ref, 'main') || startsWith(github.ref, 'refs/tags/v') }}
@@ -88,27 +82,28 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build-pages:
-    needs: [tests, lint-doc]
+    needs: [tests, lint-doc, license-check]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Create dummy requirements.txt
         run: touch requirements.txt
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.10"
-          cache: "pip"
+      - name: Create virtual environment
+        run: uv venv
       - name: Install documentation dependencies
-        run: pip install mkdocs-material
+        run: uv pip install zensical
       - name: Build pages
-        run: mkdocs build
+        run: uv run zensical build
       - name: Fix permissions
         run: |
           chmod -c -R +rX "site/" | while read line; do
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
@@ -125,4 +120,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

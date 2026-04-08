@@ -1,10 +1,8 @@
-// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-// SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-//
+// SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 // SPDX-License-Identifier: Apache-2.0
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2020",
     "lib": [
       "dom",
       "dom.iterable",
@@ -18,16 +16,17 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ]
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "src/setupProxy.js"
   ]
 }

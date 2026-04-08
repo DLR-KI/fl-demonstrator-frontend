@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-//
+// SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 // SPDX-License-Identifier: Apache-2.0
 
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -141,12 +140,12 @@ const TrainingDetailsPage = () => {
                         Training Details
                       </Typography>
                       <Grid container spacing={2} marginTop={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>ID:</strong> {training.id}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Actor:</strong> <Chip
                               label={`${actor?.firstName} ${actor?.lastName}`}
@@ -154,42 +153,42 @@ const TrainingDetailsPage = () => {
                             />
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Model:</strong> {model.name}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>State:</strong> {TrainingStateLabel[training.state]}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Target Number of Updates:</strong> {training.targetNumUpdates}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Uncertainty Method:</strong> {training.uncertaintyMethod}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Aggregation Method:</strong> {training.aggregationMethod}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Locked:</strong> {training.locked ? 'Yes' : 'No'}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid size={12}>
                           <Typography variant="body2">
                             <strong>Last Update:</strong> {new Date(training.lastUpdate).toLocaleString()}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid size={12}>
                           <Typography variant="h6" component="div">
                             Participants
                           </Typography>
@@ -262,12 +261,12 @@ const TrainingDetailsPage = () => {
                         {model.description || 'No description available'}
                       </Typography>
                       <Grid container spacing={2} marginTop={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>ID:</strong> {model.id}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Owner:</strong> <Chip
                               label={`${modelOwner?.firstName} ${modelOwner?.lastName}`}
@@ -275,7 +274,7 @@ const TrainingDetailsPage = () => {
                             />
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <Typography variant="body2">
                             <strong>Round:</strong> {model.round}
                           </Typography>

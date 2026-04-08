@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-# SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-#
+# SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 # SPDX-License-Identifier: Apache-2.0
 
 # replace environment variables (with prefix "FL_") in nginx.conf

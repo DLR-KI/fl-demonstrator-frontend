@@ -1,6 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-// SPDX-FileCopyrightText: 2024 Florian Heinrich <florian.heinrich@dlr.de>
-//
+// SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 // SPDX-License-Identifier: Apache-2.0
 
 // Reference: https://github.com/DavidAnson/markdownlint
@@ -48,5 +46,8 @@
   "MD049": { "style": "underscore" },
 
   // Set strong style to asterisk (use **text** not __text__ for strong)
-  "MD050": { "style": "asterisk" }
+  "MD050": { "style": "asterisk" },
+
+  // Link text should be descriptive
+  "MD059": false
 }

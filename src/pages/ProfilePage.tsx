@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Johannes Unruh <johannes.unruh@dlr.de>
-//
+// SPDX-FileCopyrightText: 2026 German Aerospace Center (DLR)
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material';
@@ -29,22 +28,22 @@ const ProfilePage = () => {
         />
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="body1" component="div">
                 <strong>Username:</strong> {user.username}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="body1" component="div">
                 <strong>Actor:</strong> {user.actor ? 'Yes' : 'No'}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="body1" component="div">
                 <strong>Client:</strong> {user.client ? 'Yes' : 'No'}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="body1" component="div">
                 <strong>Message Endpoint:</strong> {user.messageEndpoint}
               </Typography>

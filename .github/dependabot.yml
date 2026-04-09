@@ -11,6 +11,7 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    open-pull-requests-limit: 0  # prevents normal PRs, allows security PRs
     assignees:
       - unru-jo
 
@@ -19,6 +20,7 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    open-pull-requests-limit: 0  # prevents normal PRs, allows security PRs
     assignees:
       - unru-jo
 
@@ -27,5 +29,6 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    open-pull-requests-limit: 0  # prevents normal PRs, allows security PRs
     assignees:
       - unru-jo
